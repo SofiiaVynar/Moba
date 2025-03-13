@@ -23,7 +23,6 @@ class EnergyTrackerScreen extends StatefulWidget {
   EnergyTrackerScreenState createState() => EnergyTrackerScreenState();
 }
 
-// Зробили клас публічним
 class EnergyTrackerScreenState extends State<EnergyTrackerScreen> {
   int _energyUsage = 0;
   final TextEditingController _energyInputController = TextEditingController();
