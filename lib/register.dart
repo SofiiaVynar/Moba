@@ -31,7 +31,6 @@ class RegistrationScreen extends StatelessWidget {
             _register(label: 'Ім\'я'),
             _register(label: 'Електронна пошта'),
             _register(label: 'Пароль', obscure: true),
-            _register(label: 'Підтвердження пароля', obscure: true),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {

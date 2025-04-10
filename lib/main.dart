@@ -4,6 +4,7 @@ import 'package:labb_1/login.dart';
 import 'package:labb_1/page.dart';
 import 'package:labb_1/profile.dart';
 import 'package:labb_1/register.dart';
+import 'package:labb_1/sensors.dart';
 
 void main() {
   runApp(const ElectricityApp());
@@ -30,6 +31,7 @@ class ElectricityApp extends StatelessWidget {
         '/profile': (context) => const ProfileScreen(),
         '/home': (context) => const HomeScreen(),
         '/page': (context) => const EnergyTrackerScreen(),
+        '/sensors': (context) => const SensorsScreen(),
       },
     );
   }

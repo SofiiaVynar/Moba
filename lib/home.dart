@@ -40,6 +40,7 @@ class HomeScreen extends StatelessWidget {
                 _home(context, 'Реєстрація', '/register'),
                 _home(context, 'Профіль', '/profile'),
                 _home(context, 'Трекер електроенергії', '/page'),
+                _home(context, 'Сенсори', '/sensors'),
               ],
             ),
           ),
