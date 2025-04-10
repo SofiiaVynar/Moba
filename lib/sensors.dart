@@ -51,10 +51,12 @@ class SensorsScreenState extends State<SensorsScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            _sensorCard('Напруга', '${_voltage.toStringAsFixed(2)} В',
-                Icons.flash_on),
-            _sensorCard('Потужність', '${_power.toStringAsFixed(2)} Вт',
-                Icons.electric_bolt),
+            _sensorCard('Напруга',
+                '${_voltage.toStringAsFixed(2)} В',
+                Icons.flash_on,),
+            _sensorCard('Потужність',
+                '${_power.toStringAsFixed(2)} Вт',
+                Icons.electric_bolt,),
           ],
         ),
       ),
