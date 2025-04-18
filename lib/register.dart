@@ -31,7 +31,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
 
   String? _validateName(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Ім\'я не може бути порожнім';
+      return 'Заповніть ім\'я';
     }
     if (RegExp(r'\d').hasMatch(value)) {
       return 'Ім\'я не може містити цифр';
@@ -41,7 +41,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Електронна пошта не може бути порожньою';
+      return 'Заповніть електронну пошту';
     }
     if (!value.contains('@')) {
       return 'Електронна пошта повинна містити символ "@"';
@@ -51,14 +51,14 @@ class RegistrationScreenState extends State<RegistrationScreen> {
 
   String? _validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Пароль не може бути порожнім';
+      return 'Заповніть пароль';
     }
     return null;
   }
 
   String? _validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Номер телефону не може бути порожнім';
+      return 'Заповніть номер телефону';
     }
     if (!RegExp(r'^\+?[0-9]{10,15}$').hasMatch(value)) {
       return 'Невірний формат номера телефону';
@@ -84,7 +84,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Дані успішно надіслані')),
+        const SnackBar(content: Text('Зареєстровано')),
       );
 
       _nameController.clear();

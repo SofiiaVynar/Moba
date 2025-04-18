@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:labb_1/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -50,10 +51,11 @@ class ProfileScreenState extends State<ProfileScreen> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
 
-    if (context.mounted) {
-      Navigator.pushReplacementNamed(context, '/login');
-    }
+    if (!mounted) return;
+
+    Navigator.pushReplacementNamed(context, '/login');
   }
+
 
   Future<void> _confirmDeleteAccount() async {
     final confirm = await showDialog<bool>(
@@ -82,12 +84,17 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _logout() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', false);
+    await prefs.setBool('is_logged_in', false);
 
-    if (context.mounted) {
-      Navigator.of(context).pushReplacementNamed('/login');
-    }
+    if (!mounted) return;
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute<LoginScreen>(builder: (context) => const LoginScreen()),
+          (route) => false,
+    );
   }
+
 
   Widget _profile(String title, String value,
       TextEditingController controller,) {

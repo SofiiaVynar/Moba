@@ -32,9 +32,9 @@ class ElectricityApp extends StatelessWidget {
           backgroundColor: Color(0xFF9DB393),
         ),
       ),
-      home: isLoggedIn ? const HomeScreen() : LoginScreen(),
+      home: isLoggedIn ? const HomeScreen() : const LoginScreen(),
       routes: {
-        '/login': (context) => LoginScreen(),
+        '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegistrationScreen(),
         '/profile': (context) => const ProfileScreen(),
         '/home': (context) => const HomeScreen(),
