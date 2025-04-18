@@ -5,13 +5,21 @@ import 'package:labb_1/page.dart';
 import 'package:labb_1/profile.dart';
 import 'package:labb_1/register.dart';
 import 'package:labb_1/sensors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const ElectricityApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  final isLoggedIn = prefs.getBool('is_logged_in') ?? false;
+
+  runApp(ElectricityApp(isLoggedIn: isLoggedIn));
 }
 
+
 class ElectricityApp extends StatelessWidget {
-  const ElectricityApp({super.key});
+  final bool isLoggedIn;
+
+  const ElectricityApp({required this.isLoggedIn, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +32,9 @@ class ElectricityApp extends StatelessWidget {
           backgroundColor: Color(0xFF9DB393),
         ),
       ),
-      initialRoute: '/home',
+      home: isLoggedIn ? const HomeScreen() : LoginScreen(),
       routes: {
-        '/login': (context) => const LoginScreen(),
+        '/login': (context) => LoginScreen(),
         '/register': (context) => const RegistrationScreen(),
         '/profile': (context) => const ProfileScreen(),
         '/home': (context) => const HomeScreen(),

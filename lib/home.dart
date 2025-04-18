@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
           foregroundColor: Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 32),
           textStyle: const TextStyle(fontSize: 22,
-              fontWeight: FontWeight.bold,),
+            fontWeight: FontWeight.bold, ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
           ),
@@ -36,8 +36,6 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _home(context, 'Логін', '/login'),
-                _home(context, 'Реєстрація', '/register'),
                 _home(context, 'Профіль', '/profile'),
                 _home(context, 'Трекер електроенергії', '/page'),
                 _home(context, 'Сенсори', '/sensors'),
