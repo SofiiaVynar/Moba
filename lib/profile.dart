@@ -83,17 +83,39 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('is_logged_in', false);
-
-    if (!mounted) return;
-
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute<LoginScreen>(builder: (context) => const LoginScreen()),
-          (route) => false,
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Вихід з акаунту'),
+        content: const Text('Ви впевнені, що хочете вийти з акаунту?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Скасувати'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Вийти', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
     );
+
+    if (confirm == true) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('is_logged_in', false);
+
+      if (!mounted) return;
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute<LoginScreen>(builder: (context) =>
+        const LoginScreen(),),
+            (route) => false,
+      );
+    }
   }
+
 
 
   Widget _profile(String title, String value,
