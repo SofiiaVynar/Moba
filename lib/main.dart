@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:labb_1/connectivity_wrapper.dart';
 import 'package:labb_1/home.dart';
 import 'package:labb_1/login.dart';
 import 'package:labb_1/page.dart';
 import 'package:labb_1/profile.dart';
 import 'package:labb_1/register.dart';
 import 'package:labb_1/sensors.dart';
+import 'package:labb_1/setup_mcu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -14,7 +16,6 @@ void main() async {
 
   runApp(ElectricityApp(isLoggedIn: isLoggedIn));
 }
-
 
 class ElectricityApp extends StatelessWidget {
   final bool isLoggedIn;
@@ -32,14 +33,17 @@ class ElectricityApp extends StatelessWidget {
           backgroundColor: Color(0xFF9DB393),
         ),
       ),
-      home: isLoggedIn ? const HomeScreen() : const LoginScreen(),
+      home: ConnectivityWrapper(
+        child: isLoggedIn ? const HomeScreen() : const LoginScreen(),
+      ),
       routes: {
-        '/login': (context) => const LoginScreen(),
-        '/register': (context) => const RegistrationScreen(),
-        '/profile': (context) => const ProfileScreen(),
-        '/home': (context) => const HomeScreen(),
-        '/page': (context) => const EnergyTrackerScreen(),
-        '/sensors': (context) => const SensorsScreen(),
+        '/login': (context) => const ConnectivityWrapper(child: LoginScreen()),
+        '/register': (context) => const ConnectivityWrapper(child: RegistrationScreen()),
+        '/profile': (context) => const ConnectivityWrapper(child: ProfileScreen()),
+        '/home': (context) => const ConnectivityWrapper(child: HomeScreen()),
+        '/page': (context) => const ConnectivityWrapper(child: EnergyTrackerScreen()),
+        '/sensors': (context) => const ConnectivityWrapper(child: SensorsScreen()),
+        '/setup_mcu': (context) => const ConnectivityWrapper(child: SetupMicrocontrollerScreen()),
       },
     );
   }
