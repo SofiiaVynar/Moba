@@ -41,6 +41,7 @@ class HomeScreen extends StatelessWidget {
                 _home(context, 'Трекер електроенергії', '/page'),
                 _home(context, 'Сенсори', '/sensors'),
                 _home(context, 'Налаштувати МК', '/setup_mcu'),
+                _home(context, 'Останні повідомлення МК', '/message'),
               ],
             ),
           ),
