@@ -6,6 +6,7 @@ import 'package:labb_1/page.dart';
 import 'package:labb_1/profile.dart';
 import 'package:labb_1/register.dart';
 import 'package:labb_1/sensors.dart';
+import 'package:labb_1/setup_mcu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -42,6 +43,7 @@ class ElectricityApp extends StatelessWidget {
         '/home': (context) => const ConnectivityWrapper(child: HomeScreen()),
         '/page': (context) => const ConnectivityWrapper(child: EnergyTrackerScreen()),
         '/sensors': (context) => const ConnectivityWrapper(child: SensorsScreen()),
+        '/setup_mcu': (context) => const ConnectivityWrapper(child: SetupMicrocontrollerScreen()),
       },
     );
   }
