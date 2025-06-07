@@ -40,11 +40,13 @@ class HomeScreen extends StatelessWidget {
                 _home(context, 'Профіль', '/profile'),
                 _home(context, 'Трекер електроенергії', '/page'),
                 _home(context, 'Сенсори', '/sensors'),
+                _home(context, 'Налаштувати МК', '/setup_mcu'),
+                _home(context, 'Останні повідомлення МК', '/message'),
               ],
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
+            height: MediaQuery.of(context).size.height * 0.3,
             width: double.infinity,
             child: Image.network(
               'https://oswietlenieilampy.pl/wp-content/uploads/2020/06/O%C5%9Bwietlenie_elewacji_1592562636.jpg',
