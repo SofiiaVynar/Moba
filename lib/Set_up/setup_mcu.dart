@@ -4,22 +4,33 @@ import 'package:labb_1/QR/qr.dart';
 import 'package:labb_1/Set_up/setup_mcu_cubit.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-class SetupMicrocontrollerScreen extends StatefulWidget {
+class SetupMicrocontrollerScreen extends StatelessWidget {
   const SetupMicrocontrollerScreen({super.key});
 
   @override
-  State<SetupMicrocontrollerScreen> createState() =>
-      _SetupMicrocontrollerScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => SetupMicrocontrollerCubit(),
+      child: const SetupMicrocontrollerView(),
+    );
+  }
 }
 
-class _SetupMicrocontrollerScreenState
-    extends State<SetupMicrocontrollerScreen> {
+class SetupMicrocontrollerView extends StatefulWidget {
+  const SetupMicrocontrollerView({super.key});
+
+  @override
+  State<SetupMicrocontrollerView> createState() =>
+      _SetupMicrocontrollerViewState();
+}
+
+class _SetupMicrocontrollerViewState extends State<SetupMicrocontrollerView> {
   late final SetupMicrocontrollerCubit cubit;
 
   @override
   void initState() {
     super.initState();
-    cubit = SetupMicrocontrollerCubit();
+    cubit = context.read<SetupMicrocontrollerCubit>();
 
     cubit.stream.listen((state) {
       if (state.isConnected) {
@@ -33,7 +44,6 @@ class _SetupMicrocontrollerScreenState
 
   void _startQRScanner() async {
     final status = await Permission.camera.request();
-
     if (!mounted) return;
 
     if (status.isGranted) {
@@ -53,26 +63,16 @@ class _SetupMicrocontrollerScreenState
     }
   }
 
-
-  @override
-  void dispose() {
-    cubit.close();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: cubit,
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Налаштування МК')),
-        body: BlocBuilder<SetupMicrocontrollerCubit, SetupMicrocontrollerState>(
-          builder: (context, state) {
-            return Center(
-              child: Text(state.status, style: const TextStyle(fontSize: 18)),
-            );
-          },
-        ),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Налаштування МК')),
+      body: BlocBuilder<SetupMicrocontrollerCubit, SetupMicrocontrollerState>(
+        builder: (context, state) {
+          return Center(
+            child: Text(state.status, style: const TextStyle(fontSize: 18)),
+          );
+        },
       ),
     );
   }

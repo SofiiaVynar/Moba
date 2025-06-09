@@ -1,4 +1,6 @@
-class SensorState {
+import 'package:equatable/equatable.dart';
+
+class SensorState extends Equatable {
   final double voltage;
   final double power;
   final String mqttVoltage;
@@ -26,4 +28,7 @@ class SensorState {
     power: 0,
     mqttVoltage: '--',
   );
+
+  @override
+  List<Object> get props => [voltage, power, mqttVoltage];
 }

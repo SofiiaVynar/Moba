@@ -18,7 +18,6 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class _ProfileView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final nameController = TextEditingController();
@@ -66,19 +65,27 @@ class _ProfileView extends StatelessWidget {
                   backgroundColor: Colors.blueGrey,
                   child: Icon(Icons.person, size: 180, color: Colors.white),
                 ),
-                _profileTile('Ім\'я', state.name, nameController,
-                    state.isEditing,),
-                _profileTile('Email', state.email, emailController,
-                    state.isEditing,),
-                _profileTile('Телефон', state.phone, phoneController,
-                    state.isEditing,),
+                _profileTile('Ім\'я', state.name,
+                    nameController, state.isEditing,),
+                _profileTile('Email', state.email,
+                    emailController, state.isEditing,),
+                _profileTile('Телефон', state.phone,
+                    phoneController, state.isEditing,),
                 if (state.isEditing) ...[
                   ElevatedButton.icon(
                     onPressed: () {
+                      if (nameController.text.trim().isEmpty ||
+                          !emailController.text.contains('@')) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content:
+                          Text('Перевірте введені дані'),),
+                        );
+                        return;
+                      }
                       context.read<ProfileCubit>().saveUserData(
-                        nameController.text,
-                        emailController.text,
-                        phoneController.text,
+                        nameController.text.trim(),
+                        emailController.text.trim(),
+                        phoneController.text.trim(),
                       );
                     },
                     icon: const Icon(Icons.save),
@@ -88,8 +95,9 @@ class _ProfileView extends StatelessWidget {
                     onPressed: () => _confirmDelete(context),
                     icon: const Icon(Icons.delete),
                     label: const Text('Видалити акаунт'),
-                    style: ElevatedButton.styleFrom(backgroundColor:
-                    Colors.red,),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                    ),
                   ),
                 ],
               ],
@@ -105,11 +113,15 @@ class _ProfileView extends StatelessWidget {
   Widget _profileTile(String title, String value,
       TextEditingController controller, bool isEditing,) {
     return ListTile(
-      title: Text(title, style: const TextStyle(fontSize: 25,
-          fontWeight: FontWeight.bold,),),
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+      ),
       subtitle: isEditing
-          ? TextField(controller: controller, decoration:
-      InputDecoration(hintText: 'Введіть $title'),)
+          ? TextField(
+        controller: controller,
+        decoration: InputDecoration(hintText: 'Введіть $title'),
+      )
           : Text(value, style: const TextStyle(fontSize: 22)),
     );
   }

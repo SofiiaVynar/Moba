@@ -1,8 +1,12 @@
 part of 'profile_cubit.dart';
 
-abstract class ProfileState {}
+abstract class ProfileState {
+  const ProfileState();
+}
 
-class ProfileInitial extends ProfileState {}
+class ProfileInitial extends ProfileState {
+  const ProfileInitial();
+}
 
 class ProfileLoaded extends ProfileState {
   final String name;
@@ -10,7 +14,7 @@ class ProfileLoaded extends ProfileState {
   final String phone;
   final bool isEditing;
 
-  ProfileLoaded({
+  const ProfileLoaded({
     required this.name,
     required this.email,
     required this.phone,
@@ -32,4 +36,6 @@ class ProfileLoaded extends ProfileState {
   }
 }
 
-class ProfileDeleted extends ProfileState {}
+class ProfileDeleted extends ProfileState {
+  const ProfileDeleted();
+}

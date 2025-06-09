@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit() : super(ProfileInitial());
+  ProfileCubit() : super(const ProfileInitial());
 
   Future<void> loadUserData() async {
     final prefs = await SharedPreferences.getInstance();
@@ -28,7 +28,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> deleteAccount() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-    emit(ProfileDeleted());
+    emit(const ProfileDeleted());
   }
 
   void toggleEditing(ProfileLoaded current) {

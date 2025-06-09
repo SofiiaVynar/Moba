@@ -48,6 +48,28 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void _tryLogin() {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
+    if (email.isEmpty || !email.contains('@')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Введіть коректний email')),
+      );
+      return;
+    }
+
+    if (password.isEmpty || password.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content:
+        Text('Пароль повинен містити мінімум 6 символів'),),
+      );
+      return;
+    }
+
+    context.read<LoginCubit>().login(email, password);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,12 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 _loginField('Пароль', _passwordController, obscure: true),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: state is LoginLoading
-                      ? null
-                      : () => context.read<LoginCubit>().login(
-                    _emailController.text,
-                    _passwordController.text,
-                  ),
+                  onPressed: state is LoginLoading ? null : _tryLogin,
                   child: state is LoginLoading
                       ? const CircularProgressIndicator()
                       : const Text('Увійти', style: TextStyle(fontSize: 22)),
