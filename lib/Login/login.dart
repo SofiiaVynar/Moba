@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
   late final Connectivity _connectivity;
   late final StreamSubscription<ConnectivityResult> _subscription;
 
@@ -61,8 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (password.isEmpty || password.length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content:
-        Text('Пароль повинен містити мінімум 6 символів'),),
+        const SnackBar(
+          content: Text('Пароль повинен містити мінімум 6 символів'),
+        ),
       );
       return;
     }
@@ -114,8 +116,11 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _loginField(String label, TextEditingController controller,
-      {bool obscure = false,}) {
+  Widget _loginField(
+      String label,
+      TextEditingController controller, {
+        bool obscure = false,
+      }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(

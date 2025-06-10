@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:labb_1/Connectivity/connectivity_provider.dart';
 import 'package:labb_1/Connectivity/connectivity_wrapper.dart';
 import 'package:labb_1/Home/home.dart';
 import 'package:labb_1/Login/login.dart';
@@ -21,25 +22,36 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   final isLoggedIn = prefs.getBool('is_logged_in') ?? false;
 
-  runApp(ElectricityApp(isLoggedIn: isLoggedIn));
+  final loginCubit = LoginCubit();
+
+  runApp(ElectricityApp(
+    isLoggedIn: isLoggedIn,
+    loginCubit: loginCubit,
+  ),);
 }
 
 class ElectricityApp extends StatelessWidget {
   final bool isLoggedIn;
+  final LoginCubit loginCubit;
 
-  const ElectricityApp({required this.isLoggedIn, super.key});
+  const ElectricityApp({
+    required this.isLoggedIn,
+    required this.loginCubit,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LoginCubit>(create: (_) => LoginCubit()),
+        BlocProvider<LoginCubit>.value(value: loginCubit),
+        ConnectivityProvider.provide(),
         BlocProvider<RegistrationCubit>(create: (_) => RegistrationCubit()),
         BlocProvider<ProfileCubit>(create: (_) => ProfileCubit()),
         BlocProvider<EnergyCubit>(create: (_) => EnergyCubit()),
         BlocProvider<SensorCubit>(create: (_) => SensorCubit()),
-        BlocProvider<SetupMicrocontrollerCubit>(
-            create: (_) => SetupMicrocontrollerCubit(),),
+        BlocProvider<SetupMicrocontrollerCubit>(create: (_) =>
+            SetupMicrocontrollerCubit(),),
       ],
       child: MaterialApp(
         title: 'Electricity App',
@@ -54,20 +66,13 @@ class ElectricityApp extends StatelessWidget {
           child: isLoggedIn ? const HomeScreen() : const LoginScreen(),
         ),
         routes: {
-          '/login': (context) =>
-          const ConnectivityWrapper(child: LoginScreen()),
-          '/register': (context) =>
-          const ConnectivityWrapper(child: RegistrationScreen()),
-          '/profile': (context) =>
-          const ConnectivityWrapper(child: ProfileScreen()),
-          '/home': (context) =>
-          const ConnectivityWrapper(child: HomeScreen()),
-          '/page': (context) =>
-              ConnectivityWrapper(child: EnergyTrackerScreen()),
-          '/sensors': (context) =>
-          const ConnectivityWrapper(child: SensorsScreen()),
-          '/setup_mcu': (context) =>
-          const ConnectivityWrapper(child: SetupMicrocontrollerScreen()),
+          '/login': (context) => const ConnectivityWrapper(child: LoginScreen()),
+          '/register': (context) => const ConnectivityWrapper(child: RegistrationScreen()),
+          '/profile': (context) => const ConnectivityWrapper(child: ProfileScreen()),
+          '/home': (context) => const ConnectivityWrapper(child: HomeScreen()),
+          '/page': (context) => ConnectivityWrapper(child: EnergyTrackerScreen()),
+          '/sensors': (context) => const ConnectivityWrapper(child: SensorsScreen()),
+          '/setup_mcu': (context) => const ConnectivityWrapper(child: SetupMicrocontrollerScreen()),
         },
       ),
     );

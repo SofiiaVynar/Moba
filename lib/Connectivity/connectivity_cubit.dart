@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class ConnectivityCubit extends Cubit<bool> {
-  late final StreamSubscription<ConnectivityResult> _subscription;
+  StreamSubscription<ConnectivityResult>? _subscription;
 
   ConnectivityCubit() : super(true) {
     _init();
@@ -19,8 +19,8 @@ class ConnectivityCubit extends Cubit<bool> {
   }
 
   @override
-  Future<void> close() {
-    _subscription.cancel();
+  Future<void> close() async {
+    await _subscription?.cancel();
     return super.close();
   }
 }
