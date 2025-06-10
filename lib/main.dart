@@ -5,16 +5,17 @@ import 'package:labb_1/Connectivity/connectivity_wrapper.dart';
 import 'package:labb_1/Home/home.dart';
 import 'package:labb_1/Login/login.dart';
 import 'package:labb_1/Login/login_cubit.dart';
+import 'package:labb_1/Login/login_provider.dart';
 import 'package:labb_1/Page/page.dart';
-import 'package:labb_1/Page/page_cubit.dart';
-import 'package:labb_1/Profile/profile.dart';
-import 'package:labb_1/Profile/profile_cubit.dart';
+import 'package:labb_1/Page/page_provider.dart';
+import 'package:labb_1/Profile/profile_provider.dart';
+import 'package:labb_1/Profile/profile_screen.dart';
 import 'package:labb_1/Register/register.dart';
-import 'package:labb_1/Register/register_cubit.dart';
+import 'package:labb_1/Register/register_provider.dart';
 import 'package:labb_1/Sensors/sensors.dart';
-import 'package:labb_1/Sensors/sensors_cubit.dart';
+import 'package:labb_1/Sensors/sensors_provider.dart';
 import 'package:labb_1/Set_up/setup_mcu.dart';
-import 'package:labb_1/Set_up/setup_mcu_cubit.dart';
+import 'package:labb_1/Set_up/setup_mcu_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -24,10 +25,12 @@ void main() async {
 
   final loginCubit = LoginCubit();
 
-  runApp(ElectricityApp(
-    isLoggedIn: isLoggedIn,
-    loginCubit: loginCubit,
-  ),);
+  runApp(
+    ElectricityApp(
+      isLoggedIn: isLoggedIn,
+      loginCubit: loginCubit,
+    ),
+  );
 }
 
 class ElectricityApp extends StatelessWidget {
@@ -44,14 +47,13 @@ class ElectricityApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LoginCubit>.value(value: loginCubit),
+        LoginProvider.provide(),
         ConnectivityProvider.provide(),
-        BlocProvider<RegistrationCubit>(create: (_) => RegistrationCubit()),
-        BlocProvider<ProfileCubit>(create: (_) => ProfileCubit()),
-        BlocProvider<EnergyCubit>(create: (_) => EnergyCubit()),
-        BlocProvider<SensorCubit>(create: (_) => SensorCubit()),
-        BlocProvider<SetupMicrocontrollerCubit>(create: (_) =>
-            SetupMicrocontrollerCubit(),),
+        RegistrationProvider.provide(),
+        ProfileProvider.provide(),
+        EnergyProvider.provide(),
+        SensorProvider.provide(),
+        SetupMicrocontrollerProvider.provide(),
       ],
       child: MaterialApp(
         title: 'Electricity App',
@@ -66,13 +68,19 @@ class ElectricityApp extends StatelessWidget {
           child: isLoggedIn ? const HomeScreen() : const LoginScreen(),
         ),
         routes: {
-          '/login': (context) => const ConnectivityWrapper(child: LoginScreen()),
-          '/register': (context) => const ConnectivityWrapper(child: RegistrationScreen()),
-          '/profile': (context) => const ConnectivityWrapper(child: ProfileScreen()),
+          '/login': (context) =>
+              const ConnectivityWrapper(child: LoginScreen()),
+          '/register': (context) =>
+              const ConnectivityWrapper(child: RegistrationScreen()),
+          '/profile': (context) =>
+              const ConnectivityWrapper(child: ProfileScreen()),
           '/home': (context) => const ConnectivityWrapper(child: HomeScreen()),
-          '/page': (context) => ConnectivityWrapper(child: EnergyTrackerScreen()),
-          '/sensors': (context) => const ConnectivityWrapper(child: SensorsScreen()),
-          '/setup_mcu': (context) => const ConnectivityWrapper(child: SetupMicrocontrollerScreen()),
+          '/page': (context) =>
+              ConnectivityWrapper(child: EnergyTrackerScreen()),
+          '/sensors': (context) =>
+              const ConnectivityWrapper(child: SensorsScreen()),
+          '/setup_mcu': (context) =>
+              const ConnectivityWrapper(child: SetupMicrocontrollerScreen()),
         },
       ),
     );

@@ -117,10 +117,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _loginField(
-      String label,
-      TextEditingController controller, {
-        bool obscure = false,
-      }) {
+    String label,
+    TextEditingController controller, {
+    bool obscure = false,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextField(

@@ -42,13 +42,12 @@ class SensorCubit extends Cubit<SensorState> {
     _client.updates!.listen((List<MqttReceivedMessage<MqttMessage>> messages) {
       final recMess = messages[0].payload as MqttPublishMessage;
       final payload =
-      MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
       emit(state.copyWith(mqttVoltage: payload));
     });
   }
 
-  void _onDisconnected() {
-  }
+  void _onDisconnected() {}
 
   @override
   Future<void> close() {

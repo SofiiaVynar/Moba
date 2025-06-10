@@ -63,8 +63,9 @@ class EnergyTrackerScreen extends StatelessWidget {
             TextField(
               controller: _controller,
               decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius:
-                BorderRadius.circular(15),),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 labelText: 'Введіть число або анулюйте',
                 filled: true,
                 fillColor: Colors.white,
@@ -76,8 +77,10 @@ class EnergyTrackerScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(200, 60),
                 textStyle: const TextStyle(fontSize: 20),
-                padding: const EdgeInsets.symmetric(vertical: 15,
-                    horizontal: 30,),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 15,
+                  horizontal: 30,
+                ),
                 backgroundColor: Colors.black,
                 foregroundColor: Colors.white,
               ),

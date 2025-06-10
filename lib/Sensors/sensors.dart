@@ -1,4 +1,3 @@
-// sensors_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:labb_1/Sensors/sensors_cubit.dart';
@@ -13,8 +12,13 @@ class SensorsScreen extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: ListTile(
         leading: Icon(icon, size: 40, color: Colors.orangeAccent),
-        title: Text(label, style: const TextStyle(fontSize: 20,
-            fontWeight: FontWeight.bold,),),
+        title: Text(
+          label,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         subtitle: Text(value, style: const TextStyle(fontSize: 18)),
       ),
     );
@@ -32,13 +36,21 @@ class SensorsScreen extends StatelessWidget {
             builder: (context, state) {
               return Column(
                 children: [
-                  _sensorCard('Напруга',
-                      '${state.voltage.toStringAsFixed(2)} В', Icons.flash_on,),
-                  _sensorCard('Потужність',
+                  _sensorCard(
+                    'Напруга',
+                    '${state.voltage.toStringAsFixed(2)} В',
+                    Icons.flash_on,
+                  ),
+                  _sensorCard(
+                    'Потужність',
                     '${state.power.toStringAsFixed(2)} Вт',
-                    Icons.electric_bolt,),
-                  _sensorCard('Напруга з MQTT',
-                      '${state.mqttVoltage} В', Icons.flash_on,),
+                    Icons.electric_bolt,
+                  ),
+                  _sensorCard(
+                    'Напруга з MQTT',
+                    '${state.mqttVoltage} В',
+                    Icons.flash_on,
+                  ),
                 ],
               );
             },

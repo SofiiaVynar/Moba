@@ -22,19 +22,23 @@ class SetupMicrocontrollerState {
 
 class SetupMicrocontrollerCubit extends Cubit<SetupMicrocontrollerState> {
   SetupMicrocontrollerCubit()
-      : super(SetupMicrocontrollerState(
-    status: 'Очікування на підключення МК...',
-    isConnected: false,
-  ),) {
+      : super(
+          SetupMicrocontrollerState(
+            status: 'Очікування на підключення МК...',
+            isConnected: false,
+          ),
+        ) {
     _checkConnection();
   }
 
   Future<void> _checkConnection() async {
     await Future<void>.delayed(const Duration(seconds: 1));
-    emit(state.copyWith(
-      isConnected: true,
-      status: 'МК підключено. Відкриття сканера QR...',
-    ),);
+    emit(
+      state.copyWith(
+        isConnected: true,
+        status: 'МК підключено. Відкриття сканера QR...',
+      ),
+    );
   }
 
   void updateStatus(String newStatus) {

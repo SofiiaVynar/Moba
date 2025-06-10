@@ -32,18 +32,19 @@ class RegistrationScreen extends StatelessWidget {
 
   String? _validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) return 'Заповніть номер телефону';
-    if (!RegExp(r'^\+?[0-9]{10,15}$').hasMatch(value)) return 'Невірний формат номера телефону';
+    if (!RegExp(r'^\+?[0-9]{10,15}$').hasMatch(value))
+      return 'Невірний формат номера телефону';
     return null;
   }
 
   void _submitForm(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       context.read<RegistrationCubit>().registerUser(
-        name: _nameController.text.trim(),
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-        phone: _phoneNumberController.text.trim(),
-      );
+            name: _nameController.text.trim(),
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim(),
+            phone: _phoneNumberController.text.trim(),
+          );
     }
   }
 
@@ -72,44 +73,47 @@ class RegistrationScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Form(
             key: _formKey,
-            child: Column(children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Ім\'я'),
-                validator: _validateName,
-              ),
-              TextFormField(
-                controller: _emailController,
-                decoration:
-                const InputDecoration(labelText: 'Електронна пошта'),
-                keyboardType: TextInputType.emailAddress,
-                validator: _validateEmail,
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Пароль'),
-                obscureText: true,
-                validator: _validatePassword,
-              ),
-              TextFormField(
-                controller: _phoneNumberController,
-                decoration: const InputDecoration(labelText: 'Номер телефону'),
-                keyboardType: TextInputType.phone,
-                validator: _validatePhoneNumber,
-              ),
-              const SizedBox(height: 20),
-              BlocBuilder<RegistrationCubit, RegistrationState>(
-                builder: (context, state) {
-                  if (state is RegistrationLoading) {
-                    return const CircularProgressIndicator();
-                  }
-                  return ElevatedButton(
-                    onPressed: () => _submitForm(context),
-                    child: const Text('Зареєструватися'),
-                  );
-                },
-              ),
-            ],),
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(labelText: 'Ім\'я'),
+                  validator: _validateName,
+                ),
+                TextFormField(
+                  controller: _emailController,
+                  decoration:
+                      const InputDecoration(labelText: 'Електронна пошта'),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: _validateEmail,
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(labelText: 'Пароль'),
+                  obscureText: true,
+                  validator: _validatePassword,
+                ),
+                TextFormField(
+                  controller: _phoneNumberController,
+                  decoration:
+                      const InputDecoration(labelText: 'Номер телефону'),
+                  keyboardType: TextInputType.phone,
+                  validator: _validatePhoneNumber,
+                ),
+                const SizedBox(height: 20),
+                BlocBuilder<RegistrationCubit, RegistrationState>(
+                  builder: (context, state) {
+                    if (state is RegistrationLoading) {
+                      return const CircularProgressIndicator();
+                    }
+                    return ElevatedButton(
+                      onPressed: () => _submitForm(context),
+                      child: const Text('Зареєструватися'),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -24,10 +24,10 @@ class SensorState extends Equatable {
   }
 
   factory SensorState.initial() => const SensorState(
-    voltage: 0,
-    power: 0,
-    mqttVoltage: '--',
-  );
+        voltage: 0,
+        power: 0,
+        mqttVoltage: '--',
+      );
 
   @override
   List<Object> get props => [voltage, power, mqttVoltage];
