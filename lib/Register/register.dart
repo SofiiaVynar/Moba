@@ -32,8 +32,9 @@ class RegistrationScreen extends StatelessWidget {
 
   String? _validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) return 'Заповніть номер телефону';
-    if (!RegExp(r'^\+?[0-9]{10,15}$').hasMatch(value))
+    if (!RegExp(r'^\+?[0-9]{10,15}$').hasMatch(value)) {
       return 'Невірний формат номера телефону';
+    }
     return null;
   }
 
